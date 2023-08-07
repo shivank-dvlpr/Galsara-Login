@@ -22,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     String userName, pass1;
 
+    int userID;
+
+    String galsara,testuser;
+
+
+    Account_Model account_model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         edtUsrName = findViewById(R.id.edtUserName);
         edtPassword = findViewById(R.id.edtPassword);
 
-
+        account_model = new Account_Model();
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,8 +66,44 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (usrName.equals(userName) && pass.equals(pass1)){
 
+
                                     Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+
+                                    InputStream inputStream1 = null;
+                                    try {
+                                        inputStream1 = getAssets().open("account_info.txt");
+                                        BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(inputStream1));
+
+                                        String line1;
+
+                                        while ((line1 = bufferedReader1.readLine()) != null) {
+                                            String[] creds1 = line1.split("-");
+
+
+                                             galsara = creds1[0];
+                                             testuser = creds1[1];
+
+                                            if (userName.equals("galsara")){
+                                                userID = 0;
+                                                account_model.setUser(galsara);
+                                            }else {
+                                                userID = 1;
+                                                account_model.setUser(testuser);
+                                            }
+
+                                        }
+
+
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+
+
+                                    //intent.putExtra("USERNAME", account_model.getUser());
+                                    intent.putExtra("USER", userID);
+                                    intent.putExtra("GALSARA", galsara);
+                                    intent.putExtra("TESTUSER", testuser);
                                     startActivity(intent);
                                     return;
                                 }
