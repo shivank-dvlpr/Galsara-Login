@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RegisterationActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg"
+        android:alpha="0.15"
         android:scaleType="centerCrop"
-        android:alpha="0.15"/>
+        android:src="@drawable/bg" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,57 +20,78 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LOGIN"
+                android:text="Registration"
                 android:gravity="center"
-                android:layout_centerInParent="true"
-                android:layout_above="@id/edtUserName"
                 android:textSize="35sp"
                 android:textStyle="bold"
                 android:textColor="#000000"/>
+
+            <!--<Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnbtn"/>-->
+
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/edt_bg"
+                android:hint="Enter Your Email"
+                android:inputType="textEmailAddress"
+                android:padding="15dp" />
 
             <EditText
                 android:id="@+id/edtUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/edtEmail"
                 android:layout_centerInParent="true"
                 android:layout_margin="10dp"
+                android:background="@drawable/edt_bg"
                 android:hint="Enter Username"
                 android:inputType="textPersonName"
-                android:background="@drawable/edt_bg"
-                android:padding="15dp"/>
+                android:padding="15dp" />
 
             <EditText
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_below="@id/edtUserName"
+                android:layout_centerInParent="true"
                 android:layout_margin="10dp"
+                android:background="@drawable/edt_bg"
                 android:hint="Enter Password"
                 android:inputType="textPassword"
-                android:background="@drawable/edt_bg"
-                android:padding="15dp"/>
+                android:padding="15dp" />
 
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Submit"
-                android:layout_centerInParent="true"
                 android:layout_below="@id/edtPassword"
-                android:layout_margin="5dp" />
-
+                android:layout_centerInParent="true"
+                android:layout_margin="5dp"
+                android:text="Submit" />
 
         </LinearLayout>
 
     </ScrollView>
+
+
+
+
+
+
 
 
 

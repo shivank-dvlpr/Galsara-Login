@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     int userID;
 
-    String galsara,testuser;
+    String email,galsara,testuser;
 
 
     Account_Model account_model;
@@ -40,6 +42,28 @@ public class MainActivity extends AppCompatActivity {
 
         account_model = new Account_Model();
 
+        //edtUsrName.setText(getIntent().getStringExtra("USERNAME"));
+
+        try {
+            FileInputStream fileInputStream = openFileInput("login.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            String line11;
+            String[] credd = new String[0];
+
+            while ((line11 = bufferedReader.readLine()) != null){
+                 credd = line11.split(","); //credd[0] --> email, credd[1] --> username, credd[2] --> password
+            }
+            bufferedReader.close();
+           // Toast.makeText(this, credd[0] + credd[1] + credd[2], Toast.LENGTH_SHORT).show();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,8 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
 
                 try {
-                    InputStream inputStream = getAssets().open("login.txt");
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    FileInputStream fileInputStreamInternal = openFileInput("login.txt");
+                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStreamInternal);
+
+
+                   // InputStream inputStream = getAssets().open("login.txt");
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                     String line;
 
@@ -57,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
                         String[] creds = line.split(",");
 
 
-                        if (creds.length == 2){
-                            String usrName = creds[0];
-                            String pass = creds[1];
+                        if (creds.length == 3){
+                            String usrName = creds[1];
+                            String pass = creds[2];
 
 
                             if (userName != null && pass1 != null){
@@ -72,17 +100,19 @@ public class MainActivity extends AppCompatActivity {
 
                                     InputStream inputStream1 = null;
                                     try {
-                                        inputStream1 = getAssets().open("account_info.txt");
-                                        BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(inputStream1));
+                                        FileInputStream fileInputStreamAccount = openFileInput("account_info.txt");
+                                        InputStreamReader inputStreamReader1 = new InputStreamReader(fileInputStreamAccount);
+                                       // inputStream1 = getAssets().open("account_info.txt");
+                                        BufferedReader bufferedReader1 = new BufferedReader(inputStreamReader1);
 
                                         String line1;
 
                                         while ((line1 = bufferedReader1.readLine()) != null) {
-                                            String[] creds1 = line1.split("-");
+                                            String[] creds1 = line1.split(",");
 
-
-                                             galsara = creds1[0];
-                                             testuser = creds1[1];
+                                             email = creds1[0];
+                                             galsara = creds1[1];
+                                             testuser = creds1[2];
 
                                             if (userName.equals("galsara")){
                                                 userID = 0;
@@ -101,9 +131,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                                     //intent.putExtra("USERNAME", account_model.getUser());
-                                    intent.putExtra("USER", userID);
-                                    intent.putExtra("GALSARA", galsara);
-                                    intent.putExtra("TESTUSER", testuser);
+                                    intent.putExtra("USER", email);
+                                    intent.putExtra("USERNAME", galsara);
+                                    intent.putExtra("PASSWORD", testuser);
                                     startActivity(intent);
                                     return;
                                 }

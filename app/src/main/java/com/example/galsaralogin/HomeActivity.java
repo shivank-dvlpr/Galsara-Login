@@ -23,15 +23,16 @@ public class HomeActivity extends AppCompatActivity {
         Account_Model account_model = new Account_Model();
         txtTest = findViewById(R.id.txtTest);
 
+        txtTest.setText("Welcome "+getIntent().getStringExtra("USERNAME") + "\nYour Email is " + getIntent().getStringExtra("USER"));
 
-        if (getIntent().getIntExtra("USER", 0) == 0){
+     /*   if (getIntent().getStringExtra("USER").equals("galsara@email.com")){
             account_model.setUser(getIntent().getStringExtra("GALSARA"));
             txtTest.setText(account_model.getUser());
         }else {
             account_model.setUser(getIntent().getStringExtra("TESTUSER"));
             txtTest.setText(account_model.getUser());
         }
-
+*/
 
 
     }
